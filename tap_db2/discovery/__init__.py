@@ -21,7 +21,7 @@ Column = namedtuple("Column", [
     "character_maximum_length",
     "numeric_precision",
     "numeric_scale",
-    "ccsid",
+    # "ccsid", # Not available in all versions of DB2
 ])
 
 SUPPORTED_TYPES = {"T", "V", "P"}
@@ -70,8 +70,7 @@ def _query_columns(config):
                    data_type,
                    character_maximum_length,
                    numeric_precision,
-                   numeric_scale,
-                   ccsid
+                   numeric_scale
               FROM qsys2.syscolumns
              WHERE table_schema IN ({})
             """.format(_question_marks(binds))
