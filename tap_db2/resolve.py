@@ -97,8 +97,13 @@ def resolve_catalog(catalog, discovered, state):
             LOGGER.warning('Database %s table %s was selected but does not exist',
                            catalog_entry.database, catalog_entry.table)
             continue
-        selected = set([k for k, v in catalog_entry.schema.properties.items()
-                        if v.selected or k == replication_key])
+        # selected = set([k for k, v in catalog_entry.schema.properties.items()
+        #                 if v.selected or k == replication_key])
+        # Alternative implementation for selected
+        selected = set()
+        for k in catalog_entry.schema.properties:
+            if catalog_metadata.get(('properties', k), {}).get('selected', False) or k == replication_key:
+                selected.add(k)
 
         # These are the columns we need to select
         columns = _desired_columns(selected, discovered_table.schema)
