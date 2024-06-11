@@ -1,3 +1,5 @@
+Forked to use newer version of singer and fix some bugs.
+
 # tap-db2
 
 This is a [Singer](https://singer.io) tap that produces JSON-formatted data
