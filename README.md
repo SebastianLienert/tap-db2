@@ -1,4 +1,4 @@
-Forked to use newer version of singer and fix some bugs.
+Forked to use newer version of singer and fix some bugs. Used in a Meltano project.
 
 # tap-db2
 
