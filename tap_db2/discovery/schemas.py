@@ -59,12 +59,16 @@ def _for_column(col, pk_columns):
     elif data_type in FLOAT_TYPES:
         result.type = ["null", "number"]
     elif data_type in DECIMAL_TYPES:
+        # Convert all decimal to string for mssql server
+        result.format = "singer.decimal"
         result.type = ["null", "number"]
-        result.exclusiveMaximum = True
-        result.maximum = 10 ** (col.numeric_precision - col.numeric_scale)
-        result.exclusiveMinimum = True
-        result.minimum = -10 ** (col.numeric_precision - col.numeric_scale)
-        result.multipleOf = 10 ** (0 - col.numeric_scale)
+        result.additionalProperties = {"scale_precision": f"({col.character_maximum_length},{col.numeric_scale})"}
+        # result.type = ["null", "number"]
+        # result.exclusiveMaximum = True
+        # result.maximum = 10 ** (col.numeric_precision - col.numeric_scale)
+        # result.exclusiveMinimum = True
+        # result.minimum = -10 ** (col.numeric_precision - col.numeric_scale)
+        # result.multipleOf = 10 ** (0 - col.numeric_scale)
     elif data_type in STRING_TYPES:
         # if col.ccsid in UNSUPPORTED_CCSIDS:
         #     err = "Unsupported CCSID {}".format(col.ccsid)
