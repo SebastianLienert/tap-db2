@@ -12,7 +12,7 @@ setup(
         "singer-python==6.0.1",
         "pyodbc>4,<5",
         "pytz",
-        "pendulum",
+        "pendulum"
     ],
     entry_points="""
     [console_scripts]
